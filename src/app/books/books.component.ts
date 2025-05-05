@@ -1,35 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../book';
-import { BookService } from '../services/book.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
-    selector: 'app-books',
-    standalone: false,
-    templateUrl: './books.component.html',
-    styleUrl: './books.component.css'
+  selector: 'app-books',
+  templateUrl: './books.component.html',
+  styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit {
-    books: Book[] = []
-    constructor(private bookService: BookService) {}
+  books: Book[] = [];
+  newBook: Book = { id: 0, titulo: '', autor: '', editora: '', preco: 0 };
 
-    ngOnInit(): void {
-        this.bookService.getBooks().subscribe(data => {
-            this.books = data;
-        });
-    }
+  constructor(private http: HttpClient) {}
 
-    deleteBook(id: number): void {
-        this.bookService.deleteBook(id).subscribe(() => {
-            this.books = this.books.filter(book => book.id !== id);
-        });
-    }
+  ngOnInit(): void {
+    this.http.get<Book[]>('http://localhost:3000/books').subscribe(data => {
+      this.books = data;
+    });
+  }
 
-    newBook: Book = { id: 0, titulo: '', autor: '', editora: '', preco: 0 };
+  deleteBook(id: number): void {
+    this.http.delete(`http://localhost:3000/books/${id}`).subscribe(() => {
+      this.books = this.books.filter(book => book.id !== id);
+    });
+  }
 
-    addBook(): void {
-        this.bookService.addBook(this.newBook).subscribe(book => {
-            this.books.push(book);
-            this.newBook = { id: 0, titulo: '', autor: '', editora: '', preco: 0 };
-        });
-    }
+  addBook(): void {
+    this.http.post<Book>('http://localhost:3000/books', this.newBook).subscribe(book => {
+      this.books.push(book);
+      this.newBook = { id: 0, titulo: '', autor: '', editora: '', preco: 0 };
+    });
+  }
 }

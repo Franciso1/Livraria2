@@ -1,30 +1,30 @@
-<form (ngSubmit)="addBook()" #bookForm="ngForm" class="mb-3">
-  <input class="form-control mb-2" type="text" name="titulo" [(ngModel)]="newBook.titulo" placeholder="Titulo" required>
-  <input class="form-control mb-2" type="text" name="autor" [(ngModel)]="newBook.autor" placeholder="Autor" required>
-  <input class="form-control mb-2" type="text" name="editora" [(ngModel)]="newBook.editora" placeholder="Editora" required>
-  <input class="form-control mb-2" type="number" name="preco" [(ngModel)]="newBook.preco" placeholder="Preco" required>
-  <button class="btn btn-success" type="submit">Cadastrar Livro</button>
+<h2>Adicionar Livro</h2>
+<form (ngSubmit)="addBook()">
+  <input [(ngModel)]="newBook.titulo" placeholder="Título" required>
+  <input [(ngModel)]="newBook.autor" placeholder="Autor" required>
+  <input [(ngModel)]="newBook.editora" placeholder="Editora" required>
+  <input [(ngModel)]="newBook.preco" type="number" placeholder="Preço" required>
+  <button type="submit" class="btn btn-primary">Adicionar</button>
 </form>
 
-<table class="table table-bordered">
+<table class="table">
   <thead>
-      <tr>
-          <th>Titulo</th>
-          <th>Autor</th>
-          <th>Editora</th>
-          <th>Preco</th>
-          <th>Ações</th>
-      </tr>
+    <tr>
+      <th>Título</th>
+      <th>Autor</th>
+      <th>Editora</th>
+      <th>Preço</th>
+    </tr>
   </thead>
   <tbody>
-      <tr *ngFor="let book of books">
-          <td>{{ book.titulo }}</td>
-          <td>{{ book.autor }}</td>
-          <td>{{ book.editora }}</td>
-          <td>{{ book.preco | currency: 'BRL' }}</td>
-          <td>
-              <button class="btn btn-danger btn-sm" (click)="deleteBook(book.id)">Remover</button>
-          </td>
-      </tr>
+    <tr *ngFor="let book of books">
+      <td>{{ book.titulo }}</td>
+      <td>{{ book.autor }}</td>
+      <td>{{ book.editora }}</td>
+      <td>{{ book.preco | currency }}</td>
+      <td>
+        <button (click)="deleteBook(book.id)" class="btn btn-danger">Deletar</button>
+      </td>
+    </tr>
   </tbody>
 </table>

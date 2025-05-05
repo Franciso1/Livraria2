@@ -17,7 +17,6 @@ import { BooksComponent } from './books/books.component';
     HomeComponent,
     NavbarComponent,
     FooterComponent,
-    BooksComponent
   ],
   imports: [
     BrowserModule,
