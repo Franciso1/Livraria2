@@ -1,22 +1,30 @@
-<table class="table">
+<form (ngSubmit)="addBook()" #bookForm="ngForm" class="mb-3">
+  <input class="form-control mb-2" type="text" name="titulo" [(ngModel)]="newBook.titulo" placeholder="Titulo" required>
+  <input class="form-control mb-2" type="text" name="autor" [(ngModel)]="newBook.autor" placeholder="Autor" required>
+  <input class="form-control mb-2" type="text" name="editora" [(ngModel)]="newBook.editora" placeholder="Editora" required>
+  <input class="form-control mb-2" type="number" name="preco" [(ngModel)]="newBook.preco" placeholder="Preco" required>
+  <button class="btn btn-success" type="submit">Cadastrar Livro</button>
+</form>
+
+<table class="table table-bordered">
   <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">ID</th>
-      <th scope="col">Nome</th>
-      <th scope="col">Autor</th>
-      <th scope="col">Editora</th>
-      <th scope="col">Preço</th>
-    </tr>
+      <tr>
+          <th>Titulo</th>
+          <th>Autor</th>
+          <th>Editora</th>
+          <th>Preco</th>
+          <th>Ações</th>
+      </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let b of books">
-      <th scope="row">{{b.id}}</th>
-      <td>{{b.autor}}</td>
-      <td>{{b.titulo}}</td>
-      <td>{{b.editora}}</td>
-      <td>{{b.preco}}</td>
-    </tr>
-
+      <tr *ngFor="let book of books">
+          <td>{{ book.titulo }}</td>
+          <td>{{ book.autor }}</td>
+          <td>{{ book.editora }}</td>
+          <td>{{ book.preco | currency: 'BRL' }}</td>
+          <td>
+              <button class="btn btn-danger btn-sm" (click)="deleteBook(book.id)">Remover</button>
+          </td>
+      </tr>
   </tbody>
 </table>

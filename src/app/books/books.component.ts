@@ -1,36 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../book';
 import { BookService } from '../services/book.service';
-import { FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'app-books',
-  standalone: false,
-  templateUrl: './books.component.html',
-  styleUrl: './books.component.css'
+    selector: 'app-books',
+    standalone: false,
+    templateUrl: './books.component.html',
+    styleUrl: './books.component.css'
 })
 export class BooksComponent implements OnInit {
+    books: Book[] = []
+    constructor(private bookService: BookService) {}
 
-  books: Book[] = [];
-  FormGroupBooks: FormGroup
+    ngOnInit(): void {
+        this.bookService.getBooks().subscribe(data => {
+            this.books = data;
+        });
+    }
 
-  constructor(private bookService: BookService,
-              private FormBuilder: FormBuilder
-  )
-  {
-    this.FormGroupBooks = FormBuilder.group ({
-      id: [''],
-      titulo: [''],
-      Autor:[''],
-      Editora:[''],
-      Preço:['']
-    })
-  }
-  ngOnInit(): void {
-    this.getBooks();
-  }
+    deleteBook(id: number): void {
+        this.bookService.deleteBook(id).subscribe(() => {
+            this.books = this.books.filter(book => book.id !== id);
+        });
+    }
 
-  getBooks(): void {
-    this.bookService.getBooks().subscribe(books => this.books = books);
-  }
+    newBook: Book = { id: 0, titulo: '', autor: '', editora: '', preco: 0 };
+
+    addBook(): void {
+        this.bookService.addBook(this.newBook).subscribe(book => {
+            this.books.push(book);
+            this.newBook = { id: 0, titulo: '', autor: '', editora: '', preco: 0 };
+        });
+    }
 }

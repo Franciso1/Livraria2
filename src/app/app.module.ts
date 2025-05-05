@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'; // Importação do FormsModule
+import { provideHttpClient } from '@angular/common/http'; // Corrigido o nome do import
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // Corrigido para NgbModule
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { BooksComponent } from './books/books.component';
-import { provideHttpClient } from '@angular/common/http';
-
 
 @NgModule({
   declarations: [
@@ -22,9 +22,10 @@ import { provideHttpClient } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    FormsModule, // Movido para cá (módulo necessário para forms)
+    NgbModule // Corrigido para NgbModule
   ],
-  providers: [provideHttpClient()],
+  providers: [provideHttpClient()], // Nome corrigido
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
