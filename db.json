@@ -1,0 +1,25 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "titulo": "Dom Casmurro",
+      "autor": "Machado de Assis",
+      "editora": "Companhia das Letras",
+      "preco": 29.9
+    },
+    {
+      "id": 2,
+      "titulo": "O Cortiço",
+      "autor": "Aluísio Azevedo",
+      "editora": "Penguin",
+      "preco": 35.5
+    },
+    {
+      "id": 3,
+      "titulo": "Memórias Póstumas de Brás Cubas",
+      "autor": "Machado de Assis",
+      "editora": "Martin Claret",
+      "preco": 27.8
+    }
+  ]
+}
